@@ -1,0 +1,66 @@
+version: "3.8"
+
+services:
+  fastapi_service:
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    hostname: fastapi_service
+    container_name: fastapi_service
+    ports:
+      - "8000:8000"
+    env_file:
+      - app/.env
+    volumes:
+      - ./app:/home/app
+    networks:
+      - my-net
+
+  bakery:
+    build:
+      context: ./bakery
+      dockerfile: Dockerfile
+    hostname: bakery
+    container_name: bakery
+    ports:
+      - "50051:50051"
+    env_file:
+      - bakery/.env
+    volumes:
+      - ./bakery:/home/bakery
+    networks:
+      - my-net
+
+  bar:
+    build:
+      context: ./bar
+      dockerfile: Dockerfile
+    hostname: bar
+    container_name: bar
+    ports:
+      - "50052:50051"
+    env_file:
+      - bar/.env
+    volumes:
+      - ./bar:/home/bar
+    networks:
+      - my-net
+
+  kitchen:
+    build:
+      context: ./kitchen
+      dockerfile: Dockerfile
+    hostname: kitchen
+    container_name: kitchen
+    ports:
+      - "50053:50051"
+    env_file:
+      - kitchen/.env
+    volumes:
+      - ./kitchen:/home/kitchen
+    networks:
+      - my-net
+
+networks:
+  my-net:
+    external: true

@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package kitchen;
+
+message OrderRequest {
+  string order = 1;
+}
+
+message OrderResponse {
+  string order_status = 1;
+}
+
+service Kitchen {
+  rpc GetOrder(OrderRequest) returns (OrderResponse) {}
+}
